@@ -1,0 +1,11 @@
+{
+  "name": "serverless-demos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/BlakeGuilloud/serverless-demos.git",
+  "author": "Blake Guilloud <blake.guilloud@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "twilio": "^3.9.3"
+  }
+}

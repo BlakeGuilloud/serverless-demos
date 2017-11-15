@@ -1,0 +1,36 @@
+service: serverless-demos-2
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  environment:
+    ACCOUNT_SID: ${file(./config.yml):ACCOUNT_SID}
+    ACCOUNT_TOKEN: ${file(./config.yml):ACCOUNT_TOKEN}
+
+functions:
+  # Local function that returns "Hello World";
+  helloWorld:
+    handler: functions/helloWorld.handler
+
+  # Deployed API Gateway resource that sends a message via Twilio.
+  helloApi:
+    handler: functions/helloApi.handler
+    events:
+        - http:
+            method: post
+            path: /helloApi
+            cors: true
+
+  # Cron Job that runs every minute
+  helloCron:
+    handler: functions/helloCron.handler
+    events:
+        - schedule: cron(0/1 * * * ? *)
+  
+  # S3 Bucket event listener for uploads
+  helloBucket:
+    handler: functions/helloBucket.handler
+    events:
+        - s3:
+            bucket: sls-demos-bucket-101
+            event: s3:ObjectCreated:*
